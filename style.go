@@ -1,10 +1,19 @@
-package excel
+package xcel
 
 // Style struct
 type Style struct {
-	Font   *Font     `json:"font"`
-	Fill   *Fill     `json:"fill"`
-	Border []*Border `json:"border"`
+	Font         *Font      `json:"font"`
+	Fill         *Fill      `json:"fill"`
+	Border       []*Border  `json:"border"`
+	Alignment    *Alignment `json:"alignment"`
+	NumberFormat string     `json:"custom_number_format,omitempty"`
+}
+
+type Alignment struct {
+	Horizontal  string `json:"horizontal"`
+	Vertical    string `json:"vertical"`
+	ShrinkToFit bool   `json:"shrink_to_fit"`
+	WrapText    bool   `json:"wrap_text"`
 }
 
 // Font struct
@@ -35,7 +44,10 @@ type Border struct {
 type ImageFormat struct {
 	XScale          float64 `json:"x_scale,omitempty"`
 	YScale          float64 `json:"y_scale,omitempty"`
+	XOffset         float64 `json:"x_offset,omitempty"`
+	YOffset         float64 `json:"y_offset,omitempty"`
 	LockAspectRatio bool    `json:"lock_aspect_ratio,omitempty"`
+	Positioning     string  `json:"positioning,omitempty"`
 }
 
 const (
@@ -62,4 +74,8 @@ const (
 	BorderContinuousLight  = 7
 	BorderContinuousMedium = 2
 	BorderContinuousHeavy  = 5
+
+	PositioningDefault  = ""
+	PositioningAbsolute = "absolute"
+	PositioningOneCell  = "oneCell"
 )

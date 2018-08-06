@@ -1,4 +1,4 @@
-package excel
+package xcel
 
 // Row represents a row in a sheet
 type Row struct {
@@ -26,4 +26,8 @@ func (r *Row) AddCell() *Cell {
 
 	r.Cells = append(r.Cells, &cell)
 	return &cell
+}
+
+func (r *Row) SetHeight(val float64) {
+	r.GetFile().SetRowHeight(r.GetSheet().Name, r.ID, val)
 }

@@ -1,6 +1,10 @@
-package excel
+package xcel
 
-import "encoding/json"
+import (
+	"encoding/json"
+
+	"github.com/360EntSecGroup-Skylar/excelize"
+)
 
 // Sheet represents a sheet in a file
 type Sheet struct {
@@ -34,4 +38,12 @@ func (s *Sheet) AddPicture(cell, picture string, format ImageFormat) error {
 	}
 
 	return s.File.AddPicture(s.Name, cell, picture, string(bts))
+}
+
+func (s *Sheet) SetColWidth(col string, val float64) {
+	s.File.SetColWidth(s.Name, col, col, val)
+}
+
+func (s *Sheet) SetViewOptions(viewIndex int, opts ...excelize.SheetViewOption) error {
+	return s.File.SetSheetViewOptions(s.Name, viewIndex, opts...)
 }

@@ -1,8 +1,9 @@
-package excel
+package xcel
 
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/360EntSecGroup-Skylar/excelize"
 )
@@ -66,6 +67,22 @@ func (c *Cell) SetFormula(val string) *Cell {
 // returns the modified cell
 func (c *Cell) SetFloat(val float64) *Cell {
 	c.GetFile().SetCellValue(c.GetSheet().Name, c.GetAxis(), val)
+	return c
+}
+
+func (c *Cell) SetFloatWithFormat(val float64, format string) *Cell {
+	c.GetFile().SetCellValue(c.GetSheet().Name, c.GetAxis(), val)
+	return c
+}
+
+func (c *Cell) SetDate(val time.Time) *Cell {
+	c.GetFile().SetCellValue(c.GetSheet().Name, c.GetAxis(), val)
+	return c
+}
+
+func (c *Cell) Merge(hcell, vcell int) *Cell {
+	col := excelize.ToAlphaString(c.ID + hcell)
+	c.GetFile().MergeCell(c.GetSheet().Name, c.GetAxis(), fmt.Sprintf("%s%d", col, c.Row.ID+vcell))
 	return c
 }
 

@@ -1,4 +1,4 @@
-package excel
+package xcel
 
 import (
 	"encoding/json"
@@ -9,13 +9,15 @@ import (
 // File represents an xlsx file
 type File struct {
 	*excelize.File
+	Name   string
 	Sheets []*Sheet
 }
 
 // NewFile creates a new empty file, with no sheets
-func NewFile() *File {
+func NewFile(name string) *File {
 	f := File{
 		excelize.NewFile(),
+		name,
 		[]*Sheet{},
 	}
 
