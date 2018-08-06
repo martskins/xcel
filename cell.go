@@ -93,11 +93,16 @@ func (c *Cell) SetStyle(styleID int) *Cell {
 }
 
 // AddPicture adds a picture to the cell
-func (c *Cell) AddPicture(picture string, format ImageFormat) error {
-	bts, err := json.Marshal(format)
-	if err != nil {
-		return err
+func (c *Cell) AddPicture(picture string, format *ImageFormat) error {
+	var sf string
+	if format != nil {
+		bts, err := json.Marshal(format)
+		if err != nil {
+			return err
+		}
+
+		sf = string(bts)
 	}
 
-	return c.GetFile().AddPicture(c.GetSheet().Name, c.GetAxis(), picture, string(bts))
+	return c.GetFile().AddPicture(c.GetSheet().Name, c.GetAxis(), picture, sf)
 }

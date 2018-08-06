@@ -40,6 +40,7 @@ func (f *File) AddSheet(name string) *Sheet {
 	return &sheet
 }
 
+// NewStyle creates a style in the file and assigns it an id
 func (f *File) NewStyle(style Style) (int, error) {
 	bts, err := json.Marshal(style)
 	if err != nil {
